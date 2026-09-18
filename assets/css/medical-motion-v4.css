@@ -1,0 +1,76 @@
+.pulse-hero { --interlude: 0; --canvas-opacity: 1; --clinic-opacity: 0; }
+.motion-ready .pulse-hero { height: 195svh; min-height: 1230px; }
+.medical-canvas { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.medical-canvas canvas { width: 100%; height: 100%; display: block; }
+.has-3d .medical-canvas { opacity: var(--canvas-opacity); }
+.has-3d .pavilion-image { opacity: 0; }
+.clinic-reveal { clip-path: none; opacity: var(--clinic-opacity); z-index: 2; }
+.clinic-reveal img { transform: scale(calc(1.035 - var(--clinic-opacity) * .035)); }
+.scan-light { display: none; }
+.hero-interlude { position: absolute; left: 0; right: 0; top: 28%; opacity: var(--interlude); pointer-events: none; transform: translateY(calc((1 - var(--interlude)) * 18px)); }
+.hero-interlude h2 { font-size: 52px; line-height: 1.12; max-width: 630px; }
+.layer-key { display: grid; gap: 16px; margin-top: 30px; font-size: 11px; color: #395958; }
+.layer-key span { display: flex; align-items: center; gap: 12px; }
+.layer-key i { width: 8px; height: 8px; background: #2c7196; border-radius: 2px; }
+.layer-key span:nth-child(2) i { background: #249c8d; }
+.layer-key span:nth-child(3) i { background: #7fc6b6; }
+.hero-marker { right: 5%; top: 76%; }
+.hero-arrival { z-index: 3; }
+.scene-paused .pulse-hero { --interlude: 0 !important; --canvas-opacity: 1 !important; }
+.journey-panel { position: relative; overflow: hidden; }
+.journey-panel::after { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: inherit; pointer-events: none; }
+.journey-panel.is-updating::after { animation: record-confirm .65s ease-out; }
+.journey-panel.is-updating .record-title, .journey-panel.is-updating .record-event { animation: record-arrive .45s ease-out; }
+@keyframes record-confirm { 0% { border-color: #2b9d81; box-shadow: inset 0 0 0 4px #2b9d811c; } 100% { border-color: transparent; box-shadow: inset 0 0 0 0 transparent; } }
+@keyframes record-arrive { from { opacity: .3; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+.connection-map { position: relative; }
+.connection-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.connection-map.has-live-paths > .connector { visibility: hidden; }
+.connection-map.has-live-paths .connection-branches::before,
+.connection-map.has-live-paths .connection-branches::after,
+.connection-map.has-live-paths .connection-branches > div::before { visibility: hidden; }
+.connection-source, .connection-hub, .connection-branches { position: relative; z-index: 1; }
+.connection-source .icon, .connection-branches .icon { background: #fff; }
+.network-base { stroke: #b9d6c8; stroke-width: 1; fill: none; }
+.network-signal { stroke: #168b79; stroke-width: 2; stroke-linecap: round; fill: none; stroke-dasharray: 13 87; animation: network-pulse 3.6s linear infinite; animation-play-state: paused; }
+.is-network-visible .network-signal { animation-play-state: running; }
+.network-signal:nth-of-type(4) { animation-delay: -.9s; }
+.network-signal:nth-of-type(6) { animation-delay: -1.8s; }
+.network-signal:nth-of-type(8) { animation-delay: -2.7s; }
+.scene-paused .network-signal { animation-play-state: paused; }
+@keyframes network-pulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: -100; } }
+.website-exhibit { transition: box-shadow .5s; }
+.website-exhibit:hover { box-shadow: 0 22px 50px #193e3214; }
+.care-band > img { transition: filter .6s; }
+@media (min-width: 1600px) {
+  .hero-copy h1 { font-size: 72px; }
+  .hero-copy h1 em { font-size: 79px; }
+}
+@media (max-width: 1190px) {
+  .hero-interlude h2 { font-size: 44px; max-width: 510px; }
+}
+@media (max-width: 900px) {
+  .medical-canvas { inset: auto 0 80px; height: 57%; mask-image: linear-gradient(to bottom, transparent, #000 20%); }
+  .pavilion-image { mask-image: linear-gradient(to bottom, transparent, #000 20%); }
+  .hero-interlude { top: 12%; }
+  .hero-interlude h2 { font-size: 42px; }
+  .layer-key { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: 22px; }
+}
+@media (max-width: 680px) {
+  .motion-ready .pulse-hero { min-height: 1210px; height: 183svh; }
+  .medical-canvas { bottom: 54px; height: 55%; }
+  .hero-interlude { top: 6%; }
+  .hero-interlude h2 { font-size: 34px; }
+  .hero-interlude .eyebrow { font-size: 8px; margin-bottom: 18px; }
+  .layer-key { display: grid; gap: 11px; font-size: 10px; margin-top: 20px; }
+  .layer-key i { width: 6px; height: 6px; }
+}
+@media (max-width: 370px) {
+  .hero-copy h1 { font-size: 36px; }
+  .hero-copy h1 em { font-size: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready .pulse-hero { min-height: 0; height: auto; }
+  .network-signal { animation: none; stroke-dasharray: none; opacity: .5; }
+  .journey-panel.is-updating::after, .journey-panel.is-updating .record-title, .journey-panel.is-updating .record-event { animation: none; }
+}
